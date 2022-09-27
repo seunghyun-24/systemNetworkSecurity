@@ -20,12 +20,12 @@ int main(int argc, char* argv[]){
 	uint32_t buffer2;
 	uint32_t a2 = fread(&buffer2, 1, sizeof(buffer2), fp2);
 
-	a1 = ntohl(a1);
-	a2 = ntohl(a2);
+	buffer1 = ntohl(buffer1);
+	buffer2 = ntohl(buffer2);
 	
 	fclose(fp1);
 	fclose(fp2);
 
-	printf("%d(0x%x) + %d(0x%x) = %d(0x%x) \n", a1, a1, a2, a2, a1+a2);
+	printf("%d(0x%x) + %d(0x%x) = %d(0x%x) \n", buffer1, buffer1, buffer2, buffer2, buffer1+buffer2);
 }
 
