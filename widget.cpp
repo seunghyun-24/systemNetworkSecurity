@@ -56,24 +56,22 @@ void Widget::on_pbTea_clicked()
     changeMoney(-150);
 }
 
-void Widget::on_pbReset_clicked()
-{
+
+void Widget::on_pbReset_clicked() {
     QMessageBox msg;
-    
-    int change = this->money;
-    char value[2];
 
-    change = change/100;
+    int Coin = this->money;
+    int n100[1] = {0}, n50[1] = {0};
 
-    sprintf(&value[0], "%d", change);
+    QString refund;
 
-    int change2 = this->money - change*100;
-    change2 = change2/10;
-    sprintf(&value[1], "%d", change2);
+    while(Coin >= 100) n100[0]++, Coin -= 100;
+    while(Coin >= 50) n50[0]++, Coin -= 50;
+
+    refund += "100 = " + QString::number(n100[0]) + ", 50 = " + QString::number(n50[0]);
 
     this->money = 0;
     ui->lcdNumber->display(money);
 
-    msg.information(this, "Reset: return 100", &value[0]);
-    msg.information(this, "Reset: return 10", &value[1]); // money (calculate)
+    msg.information(this, "Reset", refund);
 }
