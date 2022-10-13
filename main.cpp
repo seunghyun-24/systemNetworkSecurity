@@ -255,13 +255,8 @@ int main(int argc, char* argv[]) {
 
         struct IPv4Hdr* IPv4Header = (struct IPv4Hdr*)(packet + sizeof(struct EthHdr));
 
-    for(int i = 0; i<pair; i++){
-        if(IPv4Header->ip_dst == mapMac.targetIP) {
-            EthHeader->smac_ = myMAC;
-                EthHeader->dmac_ = mapMac.targetMAC;
-
-                pcap_sendpacket(handle, reinterpret_cast<const u_char*>(&packet), sizeof(header->len));
-            }
+        //well..
+          
     }
 
 
