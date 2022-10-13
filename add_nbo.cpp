@@ -13,7 +13,7 @@ uint32_t _ntohl(char *file){ // modify -> add function for efficiency
     fclose(fp);
 
     if(a!=0){
-        return htonl(a);
+        return htonl(buffer);
     }
     else {
         printf("\nError: not correct type to change the form\n\n");
