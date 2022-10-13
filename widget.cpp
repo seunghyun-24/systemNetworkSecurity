@@ -17,11 +17,8 @@ Widget::~Widget()
 }
 
 void Widget::checkBuyAbility(int money){
-    if(money >= 100) ui->pbCoffee->setEnabled(true);
-    else ui->pbCoffee->setEnabled(false);
-
-    if(money >= 150) ui->pbTea->setEnabled(true);
-    else ui->pbTea->setEnabled(false);
+    ui->pbCoffee->setEnabled(money >= 100);
+    ui->pbTea->setEnabled(money >= 150);
 }
 
 void Widget::changeMoney(int diff){
