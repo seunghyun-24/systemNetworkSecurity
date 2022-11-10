@@ -27,7 +27,7 @@ bool parseHTTP(char* payload) {
 	
 	if(ptr == NULL) return false;
 	
-	ptr = strstr(ptr, blocked);
+	ptr = strstr(ptr, method);
 	
 	if(ptr == NULL) return false;
 	
