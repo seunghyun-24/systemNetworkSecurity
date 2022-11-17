@@ -6,7 +6,6 @@
 #include <linux/types.h>
 #include <linux/netfilter.h>		/* for NF_ACCEPT */
 #include <errno.h>
-#include <iso686.h>
 #include <unordered_set>
 
 #include <libnetfilter_queue/libnetfilter_queue.h>
@@ -42,21 +41,26 @@ bool parseHTTP(char* payload) {
     string siteName;
 
 	int site;
-	site = payload.find(split);
 
-	while(site != string::npos){
-		siteName = payload.substr(0, site);
-		
-		if(siteNames.find(siteName.substr(siteName.size(), siteName.size() - 2)))return true;
-		payload.erase(0, site+2);
+	while(true){
+
 		site = payload.find(split);
+		if(site == string::npos) break;
+		
+		siteName = payload.substr(0, site);
+
+		if(siteNames.find(siteName.substr(siteName.size(), siteName.size() - 2)) != string::npos ) return true;
+		
+		payload.erase(0, site + 2);
+
 	}
 	return false;
+
 }
 
 bool check(unsigned char* data) {
 	
-  struct ip* ipHeader;
+    struct ip* ipHeader;
 	struct tcphdr* tcpHeader;
 
 	uint32_t ipLen, tcpOffSet;
@@ -85,8 +89,6 @@ bool check(unsigned char* data) {
 		char* payload = (char *)(data + ipLen + tcpOffSet);
 		//안에서 찾아낸 값이랑 data랑 동일하면 true 반환
 		
-    
-    //parseHTTP(payload) ? (return true) : (return false);
 		if(parseHTTP(payload)) return true;
 		else false;
     }
@@ -176,12 +178,13 @@ static int cb(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
 bool setting(const string* fileList){
 	ifstream file;
 
-	file.open(fileList, fstrea::in);
+	file.open(fileList, fstream::in);
 
 	if(file.fail()) return false;
 
 	int trash;
 	string name;
+
 	while(!file.eof()){
 		getline(file, name);
 
@@ -202,8 +205,8 @@ bool setting(const string* fileList){
 int main(int argc, char **argv)
 {
 	if (2 != argc) {
-		printf("syntax : ");
-        printf("sample : ");
+		printf("syntax : 1m-block <site list file>");
+        printf("sample : 1m-block top-1m.txt");
 		return -1;
 	}
 
