@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+//#include <libnet.h>
 #include <netinet/in.h>
 #include <linux/types.h>
 #include <linux/netfilter.h>		/* for NF_ACCEPT */
@@ -49,8 +50,8 @@ bool parseHTTP(char* payload) {
 		
 		siteName = payload.substr(0, site);
 
-		if(siteNames.find(siteName.substr(siteName.size(), siteName.size() - 2)) != string::npos ) return true;
-		
+		if(siteNames.find(siteName.substr(siteName.size() + 6, siteName.size())) != siteNames.end()) return true;
+		 
 		payload.erase(0, site + 2);
 
 	}
