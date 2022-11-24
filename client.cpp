@@ -71,9 +71,9 @@ int main(int argc, char* argv[]){
 
     struct sockaddr_in addr;
     memset(&addr, 0, sizeof(addr));
-	  addr.sin_family = AF_INET;
-	  addr.sin_port = htons(param.port);
-	  addr.sin_addr = param.ip;
+	addr.sin_family = AF_INET;
+	addr.sin_port = htons(param.port);
+	addr.sin_addr = param.IPv4;
 
     int check = connect(client_socket, (struct sockaddr *)&addr, sizeof(addr));
     if (check == -1){
