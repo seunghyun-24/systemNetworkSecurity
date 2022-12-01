@@ -82,7 +82,7 @@ int main(int argc, char* argv[]){
 
     char *data = argv[1];
     char errbuf[PCAP_ERRBUF_SIZE];
-    pcap_t *handle = pcap_open_live(dev, BUFSIZ, 1, 100, errbuf);
+    pcap_t *handle = pcap_open_live(data, BUFSIZ, 1, 100, errbuf);
 
     if (handle == NULL)
     {
