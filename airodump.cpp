@@ -57,7 +57,7 @@ void airodump(const u_char *packet){
     BFF* FBAfter = (fixedBeacon + sizeof(BFF));
 
     char* tag = ((char*)FBAfter)+sizeof(FBAfter);
-    uint8_t = essidLen = *(tag+1);
+    uint8_t essidLen = *(tag+1);
     string essid = string (tag+2, essidLen);
 
     auto iter = info.find(bssid);
