@@ -22,7 +22,7 @@ typedef struct DeauthFrame {
 	uint16_t reason;
 } DF;
 
-/*
+
 ostream& operator<<(ostream& os, const Mac& mac){
 	return os<<std::string(mac);
 }
@@ -38,7 +38,7 @@ ostream& operator<<(ostream& os,const map<Mac, BEdata>& data){
 	
 	return os;
 }
-*/
+
 
 
 int main(int argc, char* argv[]){
