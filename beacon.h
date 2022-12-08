@@ -41,16 +41,16 @@ typedef struct beacon_frame_body_SSID {
 } BFSSID;
 
 
-struct BEdata{
+struct BEdata {
     int beacon;
     std::string essid;
 
     void ADD() {
         this->beacon++;
     }
-}
+};
 
-
+/*
 string ESSID (const u_char *packet) {
 
     RTHDR* radiotap = (RTHDR*)packet;
@@ -70,3 +70,4 @@ string ESSID (const u_char *packet) {
 
     return (char*)(ssid.essid);
 }
+*/

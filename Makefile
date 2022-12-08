@@ -1,14 +1,14 @@
 CXX = g++
 CXXFLAGS = -W -Wall -O2
-OBJECTS = deauth-attck.o
+OBJECTS = deauth-attack.o
 TARGET = deauth-attack
-LDLIBS = -lpcap
+LIBS = -lpcap
 
 
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) -o $(@) $(^) $(LDLIBS)
+	$(CXX) $(CXXFLAGS) -o $(@) $(^) $(LIBS)
 
 clean:
 	rm -f $(TARGET)
