@@ -2,12 +2,11 @@
 #include "radiotap.h"
 #include <string>
 
-using namespace std;
-
+#pragma pack(push, 1)
 typedef struct beacon_frame_ {
     uint8_t version:2;
     uint8_t type:2;
-	uint8_t subtype:4;
+    uint8_t subtype:4;
     uint8_t flags;
     uint16_t duration;
     Mac destMAC;
@@ -19,6 +18,7 @@ typedef struct beacon_frame_ {
     uint16_t beaconInterval;
     uint16_t capabilityInfo;
 } BF_;
+#pragma pack(pop)
 
 /*
 typedef struct beacon_frame_fixed {
@@ -33,14 +33,15 @@ typedef struct beacon_frame_fixed {
 
 //typedef struct fixedBeaconAfter = (fixedBeacon + sizeof(BFF));
 
-
+#pragma pack(push, 1)
 typedef struct beacon_frame_body_SSID {
     uint8_t id;
     uint8_t len;
     char essid[32];
 } BFSSID;
+#pragma pack(pop)
 
-
+#pragma pack(push, 1)
 struct BEdata {
     int beacon;
     std::string essid;
@@ -49,7 +50,7 @@ struct BEdata {
         this->beacon++;
     }
 };
-
+#pragma pack(pop)
 /*
 string ESSID (const u_char *packet) {
 

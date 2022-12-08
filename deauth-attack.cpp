@@ -53,8 +53,8 @@ int main(int argc, char* argv[]){
     char *dev = argv[1];
 	
     Mac ap = Mac(argv[2]);
-    //Mac station = (argc==4 ? Mac(argv[3]) : Mac::broadcastMac()); //Mac ("FF:FF ~")
-    Mac station = (argc == 4 ? Mac(argv[3]) : Mac("FF:FF:FF:FF:FF:FF"));
+    Mac station = (argc==4 ? Mac(argv[3]) : Mac::broadcastMac()); //Mac ("FF:FF ~")
+    //Mac station = (argc == 4 ? Mac(argv[3]) : Mac("FF:FF:FF:FF:FF:FF"));
 	
     char errbuf[PCAP_ERRBUF_SIZE];
 

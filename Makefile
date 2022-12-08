@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -W -Wall -O2
-OBJECTS = deauth-attack.o
-TARGET = deauth-attack
+OBJECTS = deauth-attack.o mac.o
+TARGET = deauth-attack mac
 LIBS = -lpcap
 
 
